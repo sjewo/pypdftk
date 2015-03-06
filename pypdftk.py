@@ -17,7 +17,6 @@ if os.getenv('PDFTK_PATH'):
 else:
     PDFTK_PATH = '/usr/bin/pdftk'
 
-
 def check_output(*popenargs, **kwargs):
     if 'stdout' in kwargs:
         raise ValueError('stdout argument not allowed, it will be overridden.')
@@ -31,11 +30,10 @@ def check_output(*popenargs, **kwargs):
         raise subprocess.CalledProcessError(retcode, cmd)
     return output
 
-
 def run_command(command, shell=False):
     ''' run a system command and yield output '''
-    p = check_output(command, shell=shell)
-    return p.split('\n')
+    p = subprocess.check_output(command, shell=shell)
+    return p.decode('UTF-8').split('\n')
 
 
 def get_num_pages(pdf_path):
@@ -125,8 +123,7 @@ def gen_xfdf(datas={}):
         </fields>
     </xfdf>""" % "\n".join(fields)
     handle, out_file = tempfile.mkstemp()
-    f = open(out_file, 'w')
+    f = open(out_file, 'wb')
     f.write(tpl.encode('UTF-8'))
     f.close()
     return out_file
-

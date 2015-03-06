@@ -50,8 +50,7 @@ datas = {
     'company': 'revolunet',
     'price': 42
 }
-generated_pdf = pypdftk.fill_form('/path/to/model.pdf', datas)
-out_pdf = pypdftk.merge(['/path/to/cover.pdf', generated_pdf])
+generated_pdf = pypdftk.fill_form('/path/to/model.pdf', datas, '/path/to/cover.pdf')
 ```
 
 
